@@ -7,9 +7,13 @@ package main
 
  func intopost(infix string) string {
 
-	postfix := ""
+	specials := map[rune]int{'*':10,'.':9,'|':8}
 
-	return postfix
+
+	pofix := []rune{}
+	s := []rune{}
+
+	return string(pofix)
  }
 
  func main(){
