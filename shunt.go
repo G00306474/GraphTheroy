@@ -4,6 +4,90 @@ package main
 	"fmt"
  )
 
+
+//Thompson  Start
+
+type state struct {
+	symbol rune
+	edge1  *state
+	edge2  *state
+}
+
+type nfa struct{
+	initial *state
+	accept *state
+
+}
+//poregtonfa = post fix regular expression to non dertiminenistic finite atonamon
+//takes string as input 
+func poregtonfa(postfix string) *nfa {
+	nfastack := []*nfa{}
+	for _, r := range postfix {
+	
+		switch r {
+		case '.':
+			//pops 2 fragments off the stack of nfa fragments 
+			frag2 := nfastack[len(nfastack)-1]
+			nfastack= nfastack[:len(nfastack)-1]
+			frag1 := nfastack[len(nfastack)-1]
+			nfastack= nfastack[:len(nfastack)-1]
+
+			//joins the accept state of the first one to the inital state of thw other fragment 
+			//thats the conncatanation
+			frag1.accept.edge1 = frag2.initial
+
+			//pushes new fragment onto the nfa stack (frag1 initial state with frag2 accepts state)
+			nfastack = append(nfastack, &nfa{initial: frag1.initial, accept: frag2.accept})
+		
+		case '|':
+				//pops 2 fragments off the stack of nfa fragments 
+				frag2 :=nfastack[len(nfastack)-1]
+				nfastack= nfastack[:len(nfastack)-1]
+				frag1 :=nfastack[len(nfastack)-1]
+				nfastack= nfastack[:len(nfastack)-1]
+
+				//new accept state
+				//join fraag1 and frag2 accet states to that
+				//create new inital state
+				accept:= state{}
+				initial := state{edge1: frag1.initial, edge2: frag2.initial}
+				frag1.accept.edge1 = &accept
+				frag2.accept.edge1 = &accept
+	
+				 //push to stack 
+				nfastack = append(nfastack, &nfa{initial: &initial, accept: &accept})
+
+		case '*':
+			frag :=nfastack[len(nfastack)-1]
+			nfastack= nfastack[:len(nfastack)-1]
+
+			accept:= state{}
+			initial := state {edge1: frag.initial, edge2: &accept}
+			frag.accept.edge1 = frag.initial
+			frag.accept.edge2 = &accept
+
+			nfastack = append(nfastack, &nfa {initial: &initial, accept: &accept})
+
+		default:
+			//not a special charcter 
+			accept := state{}
+			initial := state{symbol: r, edge1: &accept}
+
+			nfastack = append(nfastack, &nfa {initial: &initial, accept: &accept})
+		}//closes switch
+	}//closes for 
+	return nfastack[0]
+}
+
+
+
+
+//Thompson  End
+
+
+
+
+//Shunt Start
  func intopost(infix string) string {
 
 	specials := map[rune]int{'*':10,'.':9,'|':8}
@@ -44,8 +128,10 @@ package main
 	}
 	return string(pofix)//changes rune back  to string 
  }
+//Shunt End
 
  func main(){
+	 //Shunt test begin
 	//Answer: ab.c*.
 	fmt.Println("Infix:   ", "a.b.c*")
 	fmt.Println("Postfix:   ",intopost( "a.b.c*"))
@@ -61,6 +147,12 @@ package main
 	//Answer: abb.+.c.
 	fmt.Println("Infix:   ", "a.(b.b)+.c")
 	fmt.Println("Postfix:   ",intopost( "a.(b.b)+.c"))
+ //Shunt test end
 
-	
+	//NFA  test begin
+		//a followed by b and any amount of C 
+		nfa := poregtonfa("ab.c*|")
+		fmt.Println(nfa)
+		//NFA  test end
  }
+ 
