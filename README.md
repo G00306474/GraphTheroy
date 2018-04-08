@@ -87,20 +87,20 @@ full of helpful articles.
 
 
 
-	#Useful links
-	Visual studio code
-	https://code.visualstudio.com/
-	Google. The go programming language.
-	https://golang.org/.
-	Regular Expression Matching Can Be Simple And Fast 
-	(but is slow in Java, Perl, PHP, Python, Ruby, ...)
-	https://swtch.com/~rsc/regexp/regexp1.html
-	Shunting Yard Algorithm
-	https://brilliant.org/wiki/shunting-yard-algorithm/
-	Deterministic Finite Automaton
-	https://www.tutorialspoint.com/automata_theory/deterministic_finite_automaton.htm
-	Non Deterministic Finite Automaton	
-	https://www.tutorialspoint.com/automata_theory/non_deterministic_finite_automaton.htm
+#Useful links
+Visual studio code
+https://code.visualstudio.com/
+Google. The go programming language.
+https://golang.org/.
+Regular Expression Matching Can Be Simple And Fast 
+(but is slow in Java, Perl, PHP, Python, Ruby, ...)
+https://swtch.com/~rsc/regexp/regexp1.html
+Shunting Yard Algorithm
+https://brilliant.org/wiki/shunting-yard-algorithm/
+Deterministic Finite Automaton
+https://www.tutorialspoint.com/automata_theory/deterministic_finite_automaton.htm
+Non Deterministic Finite Automaton	
+https://www.tutorialspoint.com/automata_theory/non_deterministic_finite_automaton.htm
 
 
 
