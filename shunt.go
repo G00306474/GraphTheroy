@@ -2,6 +2,7 @@ package main
 
  import (
 	"fmt"
+	"os"
  )
 
 
@@ -81,10 +82,6 @@ func poregtonfa(postfix string) *nfa {
 	}//closes if
 	return nfastack[0]
 }
-
-
-
-
 //Thompson  End
 
 
@@ -132,7 +129,18 @@ func poregtonfa(postfix string) *nfa {
 	return string(pofix)//changes rune back  to string 
  }
 //Shunt End
-//Rega checks if string is a match
+func addstate(l []*state, s *state, a *state) []*state{
+	l = append(l, s)
+
+	if s != a && s.symbol == 0 {
+		l = addstate(l, s.edge1, a)
+		if s.edge2 != nil{
+			l = addstate(l, s.edge2, a)
+		}
+	}// if
+	return l
+}
+//Pomatch checks if string is a match
 func pomatch(po string, s string) bool {
 	ismatch := false
 	ponfa := poregtonfa(po)
@@ -140,12 +148,14 @@ func pomatch(po string, s string) bool {
 	current := []*state{}
 	next :=[]*state{}
 
+	current = addstate(current[:], ponfa.initial, ponfa.accept)
 
 
 	for _, r := range s {
 		for _, c := range current{
 			if c.symbol ==r{
 				//adds c state and any other state i can get to 
+				next = addstate(next[:], c.edge1, ponfa.accept)
 			}
 		}
 		//gets next current state adds it to current 
@@ -163,30 +173,82 @@ func pomatch(po string, s string) bool {
 }
 //
  func main(){
-	 //Shunt test begin
-	//Answer: ab.c*.
+
+	run();
+ }
+ func run (){
+	var userChoice string
+	for {
+		
+		fmt.Println("1. User enters Test Condition againt String ")
+		fmt.Println("2. Test shunt, thompson & Rega with hardcoded tests ")
+		fmt.Println("3. Exit  ")
+		fmt.Scanln(&userChoice)
+		switch userChoice {
+		case "1":
+			//Run the test
+			userInput()
+		case "2":
+			noUserInput()
+		case "3":
+			//Close the program
+			os.Exit(3)
+		default:
+			fmt.Println("Error please choose 1,2 or 3")
+		}
+	}
+ }
+ func userInput(){
+
+	 var condition string
+	 var testString string
+ 
+	 fmt.Println("Please enter the Condition")
+	 fmt.Scanln(&condition)
+	 fmt.Println("Please enter the test String")
+	 fmt.Scanln(&testString)
+	 fmt.Println("Infix: ", condition)
+	 //Loop through the string to test if the condition uses infix notation
+	 for _, r := range condition {
+		 // if the string contains brackets it must be infix
+		 if r == '(' || r == ')' {
+			 //Convert the infix notation to postfix
+			 condition = intopost(condition)
+ 
+			 break
+		 }
+	 }
+	 fmt.Println("PoFix: ",condition)
+	 fmt.Println("Match: ", pomatch(condition, testString))
+	 fmt.Println()
+ }
+ func noUserInput(){	
+	//Shunt test begin
+	 fmt.Println("Shunt Test")
+	//Expencted Answer: ab.c*.
 	fmt.Println("Infix:   ", "a.b.c*")
 	fmt.Println("Postfix:   ",intopost( "a.b.c*"))
 
-	//Answer: abd|.*
+	//Expencted Answer: abd|.*
 	fmt.Println("Infix:   ", "(a.(b|d))*")
 	fmt.Println("Postfix:   ",intopost( "(a.(b|d))*"))
 
-	//Answer: abd|.c*
+	//Expencted Answer: abd|.c*
 	fmt.Println("Infix:   ", "a.(b|d)c*")
 	fmt.Println("Postfix:   ",intopost( "a.(b|d)c*"))
 
-	//Answer: abb.+.c.
+	//Expencted Answer: abb.+.c.
 	fmt.Println("Infix:   ", "a.(b.b)+.c")
 	fmt.Println("Postfix:   ",intopost( "a.(b.b)+.c"))
  //Shunt test end
-
-	//NFA  test begin
-		//a followed by b and any amount of C 
-		nfa := poregtonfa("ab.c*|")
-		fmt.Println(nfa)
-		//NFA  test end
-
-		fmt.Println(pomatch("ab.c*|","cccc"))
- }
  
+	fmt.Println("Thompson algo test being given ab.c*|")
+	//NFA  test begin
+	//a followed by b and any amount of C 
+	nfa := poregtonfa("ab.c*|")
+	fmt.Println(nfa)
+	//NFA  test end
+	
+	fmt.Println("Match test case ab.c*| cccc")
+	fmt.Println(pomatch("ab.c*|","cccc"))
+}
