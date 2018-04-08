@@ -59,6 +59,7 @@ func poregtonfa(postfix string) *nfa {
 				nfastack = append(nfastack, &nfa{initial: &initial, accept: &accept})
 
 		case '*':
+			//only pop one frag off the nfa stack
 			frag :=nfastack[len(nfastack)-1]
 			nfastack= nfastack[:len(nfastack)-1]
 
@@ -68,6 +69,16 @@ func poregtonfa(postfix string) *nfa {
 			frag.accept.edge2 = &accept
 
 			nfastack = append(nfastack, &nfa {initial: &initial, accept: &accept})
+		case '+':
+			frag :=nfastack[len(nfastack)-1]
+			nfastack= nfastack[:len(nfastack)-1]
+
+			accept:= state{}
+			initial := state {edge1: frag.initial, edge2: &accept}
+			frag.accept.edge1 = &initial
+			//frag.accept.edge2 = &accept
+
+			nfastack = Push(&nfa {initial: frag.initial, accept: &accept})
 
 		default:
 			//not a special charcter 
@@ -90,7 +101,7 @@ func poregtonfa(postfix string) *nfa {
 //Shunt Start
  func intopost(infix string) string {
 
-	specials := map[rune]int{'*':10,'.':9,'|':8}
+	specials := map[rune]int{'*':10,'+':9,'.':8,'|':7}
 
 	pofix := []rune{}
 	s := []rune{}
