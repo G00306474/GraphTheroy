@@ -75,7 +75,10 @@ func poregtonfa(postfix string) *nfa {
 
 			nfastack = append(nfastack, &nfa {initial: &initial, accept: &accept})
 		}//closes switch
-	}//closes for 
+	}//closes for
+	if len(nfastack) != 1 {
+		fmt.Println("Uh oh!", len(nfastack), nfastack)
+	}//closes if
 	return nfastack[0]
 }
 
@@ -135,12 +138,12 @@ func pomatch(po string, s string) bool {
 	ponfa := poregtonfa(po)
 	
 	current := []*state{}
-	next :=[]*staate{}
+	next :=[]*state{}
 
 
 
 	for _, r := range s {
-		for _, c := current{
+		for _, c := range current{
 			if c.symbol ==r{
 				//adds c state and any other state i can get to 
 			}
@@ -150,7 +153,10 @@ func pomatch(po string, s string) bool {
 	}
 
 	for _, c := range current {
-		
+		if c == ponfa.accept{
+			ismatch = true
+			break
+		}
 	}
 	return ismatch
 
