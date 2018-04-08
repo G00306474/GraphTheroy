@@ -63,14 +63,49 @@ t := n.regexmatch("01110")
 f := n.regexmatch("1000001")
 }
 
-#Research 
-
 #Run Project 
-Go compiler can be installed from https://golang.org/doc/install
 
-#Useful links
-Google. The go programming language.
-https://golang.org/.
-Regular Expression Matching Can Be Simple And Fast 
-(but is slow in Java, Perl, PHP, Python, Ruby, ...)
-https://swtch.com/~rsc/regexp/regexp1.html
+Go compiler can be installed from https://golang.org/doc/install 
+Click clone or download zip from github
+Once you have installed the compiler, and have the files on your computer,
+ open a command line of your choice. Next, navigate your way to the folder.
+ Type go run shunt.go this will create a exe file and run it. 
+I personally use visual studio code for creating thi project so if you want to edit the code you can
+get that from https://code.visualstudio.com/
+
+
+How the project was created
+This project was build mainly using code from my lecturer video examples. 
+https://web.microsoftstream.com/video/68a288f5-4688-4b3a-980e-1fcd5dd2a53b 
+https://web.microsoftstream.com/video/9d83a3f3-bc4f-4bda-95cc-b21c8e67675e
+https://web.microsoftstream.com/video/bad665ee-3417-4350-9d31-6db35cf5f80d
+When I first started this project I felt larly overwhelmed but by folloing these videos and by using websites like stack overflow
+for any issues I ran into that werent covered in the videos/lectures I devloped an understanding of the project. I was even able to add
+in a special character "+" to run with the project. 
+This is my second time working with Go for a project and I got to say that is a very good programming lanaguage and that the Go website is 
+full of helpful articles. 
+
+
+
+	#Useful links
+	Visual studio code
+	https://code.visualstudio.com/
+	Google. The go programming language.
+	https://golang.org/.
+	Regular Expression Matching Can Be Simple And Fast 
+	(but is slow in Java, Perl, PHP, Python, Ruby, ...)
+	https://swtch.com/~rsc/regexp/regexp1.html
+	Shunting Yard Algorithm
+	https://brilliant.org/wiki/shunting-yard-algorithm/
+	Deterministic Finite Automaton
+	https://www.tutorialspoint.com/automata_theory/deterministic_finite_automaton.htm
+	Non Deterministic Finite Automaton	
+	https://www.tutorialspoint.com/automata_theory/non_deterministic_finite_automaton.htm
+
+
+
+
+
+
+
+
