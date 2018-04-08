@@ -129,7 +129,33 @@ func poregtonfa(postfix string) *nfa {
 	return string(pofix)//changes rune back  to string 
  }
 //Shunt End
+//Rega checks if string is a match
+func pomatch(po string, s string) bool {
+	ismatch := false
+	ponfa := poregtonfa(po)
+	
+	current := []*state{}
+	next :=[]*staate{}
 
+
+
+	for _, r := range s {
+		for _, c := current{
+			if c.symbol ==r{
+				//adds c state and any other state i can get to 
+			}
+		}
+		//gets next current state adds it to current 
+		current, next = next, []*state{}
+	}
+
+	for _, c := range current {
+		
+	}
+	return ismatch
+
+}
+//
  func main(){
 	 //Shunt test begin
 	//Answer: ab.c*.
@@ -154,5 +180,7 @@ func poregtonfa(postfix string) *nfa {
 		nfa := poregtonfa("ab.c*|")
 		fmt.Println(nfa)
 		//NFA  test end
+
+		fmt.Println(pomatch("ab.c*|","cccc"))
  }
  
