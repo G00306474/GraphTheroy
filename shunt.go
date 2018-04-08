@@ -88,9 +88,11 @@ func poregtonfa(postfix string) *nfa {
 			nfastack = append(nfastack, &nfa {initial: &initial, accept: &accept})
 		}//closes switch
 	}//closes for
+	/*
 	if len(nfastack) != 1 {
 		fmt.Println("Uh oh!", len(nfastack), nfastack)
 	}//closes if
+	*/
 	return nfastack[0]
 }
 //Thompson  End
@@ -218,18 +220,9 @@ func pomatch(po string, s string) bool {
 	 fmt.Scanln(&condition)
 	 fmt.Println("Please enter the test String")
 	 fmt.Scanln(&testString)
+	 
 	 fmt.Println("Infix: ", condition)
-	 //Loop through the string to test if the condition uses infix notation
-	 for _, r := range condition {
-		 // if the string contains brackets it must be infix
-		 if r == '(' || r == ')' {
-			 //Convert the infix notation to postfix
-			 condition = intopost(condition)
- 
-			 break
-		 }
-	 }
-	 fmt.Println("PoFix: ",condition)
+	 fmt.Println("PoFix: ",intopost(condition))
 	 fmt.Println("Match: ", pomatch(condition, testString))
 	 fmt.Println()
  }
