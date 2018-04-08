@@ -78,7 +78,7 @@ func poregtonfa(postfix string) *nfa {
 			frag.accept.edge1 = &initial
 			//frag.accept.edge2 = &accept
 
-			nfastack = Push(&nfa {initial: frag.initial, accept: &accept})
+			nfastack = append(nfastack, &nfa{initial: &initial, accept: &accept})
 
 		default:
 			//not a special charcter 
