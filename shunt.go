@@ -1,3 +1,11 @@
+/*Code Adapted from 
+https://web.microsoftstream.com/video/68a288f5-4688-4b3a-980e-1fcd5dd2a53b 
+https://web.microsoftstream.com/video/9d83a3f3-bc4f-4bda-95cc-b21c8e67675e
+https://web.microsoftstream.com/video/bad665ee-3417-4350-9d31-6db35cf5f80d
+By Ian Mcloughlan
+*//*
+Student Name: Kevin Moran Student Number G00306474
+*/
 package main
 
  import (
@@ -220,7 +228,7 @@ func pomatch(po string, s string) bool {
 	 fmt.Scanln(&condition)
 	 fmt.Println("Please enter the test String")
 	 fmt.Scanln(&testString)
-	 
+
 	 fmt.Println("Infix: ", condition)
 	 fmt.Println("PoFix: ",intopost(condition))
 	 fmt.Println("Match: ", pomatch(condition, testString))
